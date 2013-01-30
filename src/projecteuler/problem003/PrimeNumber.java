@@ -6,11 +6,49 @@ import java.util.List;
 public class PrimeNumber {
 
 	public static void main(String[] arg) {
-		for (Long a : getPrimeFactors(600851475143l)) {
-			System.out.println(a);
-		}
-	}
 
+		
+		System.out.println(isCoprime(14, 16));
+	}
+	
+	public static boolean isCoprime(long a, long b) {
+		if(findGreatCommonDivisor(a, b) > 1) 
+			return false;
+		else
+			return true;
+	}
+	
+	public static long findGreatCommonDivisor(long a, long b) {
+		if(a < b) {
+			long temp = a;
+			a = b;
+			b = temp;
+		}
+		
+		long rk2 = a;
+		long rk1 = b;
+		long rk = 0;
+		long qk = 0;
+		
+		
+		do{
+			//rk2 = qk * rk1 + rk
+			qk = rk2 / rk1;
+			rk = rk2 % rk1;
+			
+//			System.out.println(rk2 + " = " + qk + " * " + rk1 + " + " + rk);
+			
+			if(rk == 0) {
+				return rk1;
+			}
+			
+			rk2 = rk1;
+			rk1 = rk;
+			
+		} while(rk > 0);
+		
+		return 0;
+	}
 
 	public static List<Long> getPrimeFactors(long number) {
 		List<Long> primeFactorList = new ArrayList<Long>();
@@ -32,6 +70,23 @@ public class PrimeNumber {
 			primeFactorList.add(number);
 		}
 		return primeFactorList;
+	}
+
+	public static long getTHPrime(int thNumber) {
+		int counter = 0;
+		int current = 2;
+
+		while (true) {
+			if (isPrime(current)) {
+				counter++;
+				System.out.println(counter);
+				if (counter == thNumber) {
+					return current;
+				}
+
+			}
+			current++;
+		}
 	}
 
 	public static List<Long> getPrimesByTrialDivision(long max) {
@@ -58,4 +113,6 @@ public class PrimeNumber {
 		}
 		return true;
 	}
+
+
 }
